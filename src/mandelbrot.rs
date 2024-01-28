@@ -123,8 +123,29 @@ impl Viewport {
     }
 
     pub fn zoom(&mut self, factor: f64) {
-        let cx = self.ul.re - self.lr.re;
-        let cy = self.ul.im - self.lr.im;
-        self.ul.re = cx - (self.ul.re)
+        let center_x = (self.ul.im + self.lr.im) / 2.0;
+        let center_y = (self.ul.re + self.lr.re) / 2.0;
+
+        let width = self.lr.im - self.ul.im;
+        let height = self.lr.re - self.ul.re;
+
+        let new_width = width * factor;
+        let new_height = height * factor;
+
+        self.ul.im = center_x - new_width / 2.0;
+        self.ul.re = center_y - new_height / 2.0;
+
+        self.lr.im = center_x + new_width / 2.0;
+        self.lr.re = center_y + new_height / 2.0;
+    }
+
+    pub fn translate_x(&mut self, factor: f64) {
+        self.ul.re += factor;
+        self.lr.re += factor;
+    }
+
+    pub fn translate_y(&mut self, factor: f64) {
+        self.ul.im += factor;
+        self.lr.im += factor;
     }
 }
