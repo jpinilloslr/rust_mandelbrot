@@ -9,12 +9,14 @@ const SCREEN_SIZE: (usize, usize) = (1024, 768);
 
 fn main() {
     let opengl = OpenGL::V3_2;
-    let mut window: PistonWindow =
-        WindowSettings::new("Mandelbrot", (SCREEN_SIZE.0 as u32, SCREEN_SIZE.1 as u32))
-            .exit_on_esc(true)
-            .graphics_api(opengl)
-            .build()
-            .unwrap();
+    let mut window: PistonWindow = WindowSettings::new(
+        "Mandelbrot",
+        ((SCREEN_SIZE.0 - 24) as u32, (SCREEN_SIZE.1 - 24) as u32),
+    )
+    .exit_on_esc(true)
+    .graphics_api(opengl)
+    .build()
+    .unwrap();
 
     let mut viewport = Viewport::new(
         Complex {
@@ -58,13 +60,13 @@ fn main() {
         }
         if let Some(button) = e.press_args() {
             if button == Button::Keyboard(Key::Right) {
-                viewport.translate_x(0.01);
+                viewport.translate_x(-0.1);
             } else if button == Button::Keyboard(Key::Left) {
-                viewport.translate_x(-0.01);
+                viewport.translate_x(0.1);
             } else if button == Button::Keyboard(Key::Up) {
-                viewport.translate_y(0.01);
+                viewport.translate_y(0.1);
             } else if button == Button::Keyboard(Key::Down) {
-                viewport.translate_y(-0.01);
+                viewport.translate_y(-0.1);
             } else if button == Button::Keyboard(Key::Z) {
                 viewport.zoom(0.9);
             } else if button == Button::Keyboard(Key::X) {

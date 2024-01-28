@@ -140,12 +140,14 @@ impl Viewport {
     }
 
     pub fn translate_x(&mut self, factor: f64) {
-        self.ul.re += factor;
-        self.lr.re += factor;
+        let width = self.lr.im - self.ul.im;
+        self.ul.re += width * factor;
+        self.lr.re += width * factor;
     }
 
     pub fn translate_y(&mut self, factor: f64) {
-        self.ul.im += factor;
-        self.lr.im += factor;
+        let height = self.lr.re - self.ul.re;
+        self.ul.im += height * factor;
+        self.lr.im += height * factor;
     }
 }
